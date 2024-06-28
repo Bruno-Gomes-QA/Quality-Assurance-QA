@@ -7,6 +7,7 @@ Este repositório tem como objetivo registrar minhas habilidades como Analista d
 
 <div>
 <img src="./.github/swagger.png" width="600px">
+<img src="./.github/pytest.png" width="600px">
 </div>
 
 </div>
