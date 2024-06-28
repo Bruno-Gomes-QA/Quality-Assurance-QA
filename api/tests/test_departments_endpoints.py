@@ -25,4 +25,4 @@ def test_given_post_departments_when_get_reponse_then_posted_department(client):
     
     response = client.post('/department', json=data)
     assert response.status_code == 201
-    assert response.json == {'message': 'Department added', 'data': expect_data}
+    assert response.json == expected
