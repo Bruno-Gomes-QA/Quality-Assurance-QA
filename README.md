@@ -51,7 +51,7 @@ pip install poetry
 ```
 - MySQL 💽
 ```bash
-sudo apt install mysql-server
+sudo apt-get install mysql-server
 ```
 - Iniciar o banco de dados
 ```bash
@@ -62,7 +62,6 @@ CREATE DATABASE IF NOT EXISTS teste; # Apenas na primeira execução.
 ```
 - Iniciar o ambiente com Poetry
 ```bash
-cd ./api
 poetry shell
 poetry install
 ```
@@ -76,11 +75,13 @@ DATABASE=base
 ```
 - Rodar a API
 ```bash
+cd ./api
 flask run
 ```
 
 - Rodar os testes
 ```bash
+cd ./api
 pytest -v #Executa os testes com verbose
 ```
 
