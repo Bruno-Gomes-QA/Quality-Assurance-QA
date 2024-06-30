@@ -13,6 +13,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 metadata = Base.metadata
 
+
 class Department(Base):
     __tablename__ = 'departments'
 
@@ -33,6 +34,7 @@ class Department(Base):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
         }
+
 
 class Product(Base):
     __tablename__ = 'products'

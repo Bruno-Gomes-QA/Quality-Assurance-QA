@@ -1,0 +1,48 @@
+import streamlit as st
+from models import DepartmentModel
+from functions import hide_menu, redirect_with
+import streamlit_pydantic as sp
+from services import departmentServices as ds
+import pandas as pd
+from time import sleep
+
+if 'wide_mode' in st.session_state:
+    st.set_page_config(page_title='Departamentos', layout=st.session_state.wide_mode)
+else:
+    st.set_page_config(page_title='Departamentos', layout='centered')
+
+hide_menu(st)
+redirect_with(st)
+
+data = sp.pydantic_form(key="my_form", model=DepartmentModel, submit_label='Criar Departamento', clear_on_submit=True)
+if data:
+    response = ds.add_department(data)
+    st.success('Departamento criado com sucesso') if response.status_code == 201 else st.error('Erro ao criar departamento')
+
+departments = ds.get_departments()
+if departments.json()['data'] == []:
+    st.write('')
+    st.write('Nenhum departamento cadastrado')
+else:
+    st.subheader('Departamentos')
+    st.write('Aqui estão todos os departamentos cadastrados, para editar altere o valor na tabela abaixo e clique em Atualizar Departamentos')
+    st.write('')
+
+    df = pd.DataFrame(departments.json()['data'], columns=['name', 'description'])
+    edited_df = st.data_editor(df, column_config={'name': {'editable': True, 'label': 'Nome'}, 'description': {'editable': True, 'label': 'Descrição'}})
+
+    if st.button('Atualizar Departamentos'):
+        with st.status("Atualizando Departamentos..."):
+            update = False
+            for index, row in edited_df.iterrows():
+                if not row.equals(df.iloc[index]):
+                    update = True
+                    response = ds.update_department(row, index+1)
+                    if response.status_code == 200:
+                        st.toast(f"Departamento {row['name']} atualizado com sucesso")
+                    else:
+                        st.error('Erro ao atualizar departamento')
+            if not update:
+                st.toast('Nenhum departamento foi alterado')
+        sleep(2)
+        st.rerun()
