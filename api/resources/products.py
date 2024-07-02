@@ -5,7 +5,6 @@ from models import Product, Department
 from schemas import ProductModel, ProductGet
 
 
-
 def safe_convert_float(value):
     try:
         return float(value)
@@ -15,6 +14,7 @@ def safe_convert_float(value):
 
 def create_products_blueprint(spec):
     products = Blueprint('products', __name__)
+
     @products.route('/products', methods=['GET'])
     @spec.validate(query=ProductGet)
     def get_products():

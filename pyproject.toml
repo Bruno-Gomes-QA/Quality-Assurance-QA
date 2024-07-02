@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "quality-assurance-qa"
+name = "Quality-Assurance-QA"
 version = "0.1.0"
 description = ""
 authors = ["Bruno Gomes QA <bruno.gomes.qa@gmail.com>"]
@@ -16,6 +16,10 @@ taskipy = "^1.12.2"
 python-dotenv = "^1.0.1"
 pymysql = "1.1.0"
 pytest = "^8.2.1"
+streamlit = "^1.36.0"
+requests = "^2.32.3"
+streamlit-pydantic = "^0.6.0"
+streamlit-js-eval = "^0.1.7"
 
 
 [build-system]
