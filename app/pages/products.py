@@ -24,11 +24,16 @@ if departments.json()['data'] == []:
 else:
     data = sp.pydantic_form(key="my_form", model=ProductModel, submit_label='Criar Produto', clear_on_submit=True)
     if data:
-        response = ps.add_product(data)
-        if response.status_code == 201:
-            st.success('Produto criado com sucesso')
+        if data.product_name != '' or data.product_description != '':
+            response = ps.add_product(data)
+            if response.status_code == 201:
+                st.success('Produto criado com sucesso')
+            else:
+                st.error('Erro ao criar produto')
         else:
-            st.error('Erro ao criar produto')
+            st.error('Preencha os campos obrigatórios')
+            sleep(0.5)
+            st.rerun()
     products = ps.get_products()
     if products.json()['data'] == []:
         st.warning('Nenhum produto cadastrado')
@@ -37,13 +42,17 @@ else:
         st.write('Aqui estão todos os produtos cadastrados, para editar altere o valor na tabela abaixo e clique em Atualizar Produtos')
         st.write('')
 
-        df = pd.DataFrame(products.json()['data'], columns=['product_name', 'product_description', 'buy_price', 'sale_price', 'stock'])
-        edited_df = st.data_editor(df, column_config={'name': {'editable': True, 'label': 'Nome'},
-                                                        'description': {'editable': True, 'label': 'Descrição'},
+        df = pd.DataFrame(products.json()['data'], columns=['id', 'product_name', 'product_description', 'buy_price', 'sale_price', 'stock'])
+        edited_df = st.data_editor(df, column_config={  'id': {'editable': False, 'label': 'ID', 'disabled': True},
+                                                        'product_name': {'editable': True, 'label': 'Nome'},
+                                                        'product_description': {'editable': True, 'label': 'Descrição'},
                                                         'buy_price': {'editable': True, 'label': 'Preço de Compra'},
                                                         'sale_price': {'editable': True, 'label': 'Preço de Venda'},
                                                         'stock': {'editable': True, 'label': 'Estoque'}
-                                                       })
+                                                    },
+                                use_container_width=True,
+                                hide_index=True
+                                    )
 
         if st.button('Atualizar Produtos'):
             with st.status("Atualizando Produtos..."):

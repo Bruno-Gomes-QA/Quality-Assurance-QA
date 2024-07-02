@@ -6,12 +6,8 @@ from services import departmentServices as ds
 response = ds.get_departments()
 departments = response.json()['data']
 
-def create_enum(name, values):
-    return Enum(name, values)
-
-department_names = {dept['name'] : f"{i+1} - {dept['name'].upper()}" for i, dept in enumerate(departments)}
-SelectionValue = create_enum('SelectionValue', department_names)
-
+department_names = {str(dept['id']): f"{dept['id']} - {dept['name'].upper()}" for dept in departments}
+SelectionValue = Enum('SelectionValue', department_names)
 
 class ProductModel(BaseModel):
     product_name: str = Field(..., title='Nome do Produto')
@@ -24,10 +20,15 @@ class ProductModel(BaseModel):
     sale_price: float = Field(
         ..., title='Preço de Venda'
     )
-    stock: float = Field(..., title='Estoque')
-    department_id: SelectionValue = Field( # type: ignore
-        ..., title='Departamento do Produto'
+    if len(department_names) == 1:
+        department_id: str = Field( # type: ignore
+            department_names['3'], title='Departamento do Produto'
+        )
+    else:
+        department_id: SelectionValue = Field( # type: ignore
+            ..., title='Departamento do Produto'
     )
+    stock: float = Field(..., title='Estoque')
 
 
 class ProductGet(BaseModel):

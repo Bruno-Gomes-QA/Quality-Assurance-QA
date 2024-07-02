@@ -10,12 +10,14 @@ hide_menu(st)
 redirect_with(st)
 
 st.title('Gestor de Produtos e Departamentos')
-
+st.write('')
 st.write('''Com este aplicativo, você pode gerenciar produtos
           e departamentos de maneira eficiente, gerando relatórios 
           e controlando o estoque. Além disso, ele oferece uma interface
           intuitiva para facilitar a administração e o acompanhamento 
           de todos os seus itens.''')
+
+st.subheader('')
 
 col1, col2 = st.columns(2)
 

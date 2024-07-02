@@ -19,11 +19,13 @@ def get_departments():
     except requests.exceptions.RequestException as e:
       return e
 
-def update_department(data, id):
+def update_department(data):
       
       data_j = json.loads(data.to_json())
       data_j['created_at'] = None
       data_j['updated_at'] = None
+      id = data_j['id']
+      data_j.pop('id')
   
       try:
         return requests.put(st.session_state.api_url + '/department/' + str(id), json=data_j)

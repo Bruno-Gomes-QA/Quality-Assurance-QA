@@ -15,13 +15,14 @@ def add_product(data):
       return e
 
 def get_products():  
-    try:
-      return requests.get(st.session_state.api_url + '/products')
-    except requests.exceptions.RequestException as e:
-      return e
+  try:
+    return requests.get(st.session_state.api_url + '/products')
+  except requests.exceptions.RequestException as e:
+    return e
 
 def update_product(data, id):
       
+
       data_j = json.loads(data.to_json())
       data_j['created_at'] = None
       data_j['updated_at'] = None
