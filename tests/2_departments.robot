@@ -38,7 +38,8 @@ Adicionar Departamento
     Input Text    xpath=${INPUT_NOME_DEPARTAMENTO}    ${nome}
     Input Text    xpath=${INPUT_DESCRICAO_DEPARTAMENTO}    ${descricao}
     Click Button    xpath=${SUBMIT_DEPARTAMENTO}
-
+    Sleep    1s
+    
 *** Test Cases ***
 Verificar Página Inicial
     [Documentation]    Este teste verifica o título da página inicial

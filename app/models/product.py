@@ -25,13 +25,13 @@ class ProductModel(BaseModel):
     sale_price: float = Field(
         ..., title='Preço de Venda'
     )
-    if len(SelectDepartments.__members__) == 1:
-        department_id: str = Field( # type: ignore
-            SelectDepartments[0], title='Departamento do Produto'
-        )
-    else:
+    if len(SelectDepartments.__members__) > 0:
         department_id: SelectDepartments = Field( # type: ignore
             SelectDepartments['1'], title='Departamento do Produto'
+        )
+    else:
+        department_id: str = Field( # type: ignore
+            'Cadastre um Departamento Primeiro', title='Departamento do Produto'
     )
     stock: float = Field(..., title='Estoque')
 
