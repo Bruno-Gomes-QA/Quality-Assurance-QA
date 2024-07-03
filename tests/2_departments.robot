@@ -39,11 +39,6 @@ Adicionar Departamento
     Input Text    xpath=${INPUT_DESCRICAO_DEPARTAMENTO}    ${descricao}
     Click Button    xpath=${SUBMIT_DEPARTAMENTO}
 
-Verificar Departamento
-    [Arguments]    ${id}    ${nome}    ${descricao}
-    Element Text Should Be    xpath=${TABLE_ROWS}/tr[${id}]/td[2]    ${nome}
-    Element Text Should Be    xpath=${TABLE_ROWS}/tr[${id}]/td[2]    ${descricao}
-
 *** Test Cases ***
 Verificar Página Inicial
     [Documentation]    Este teste verifica o título da página inicial

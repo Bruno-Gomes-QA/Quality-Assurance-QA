@@ -3,14 +3,18 @@ from typing import Optional, Set
 from enum import Enum
 from services import departmentServices as ds
 
-response = ds.get_departments()
-departments = response.json()['data']
 
-department_names = {str(dept['id']): f"{dept['id']} - {dept['name'].upper()}" for dept in departments}
-SelectionValue = Enum('SelectionValue', department_names)
-
+def get_departments():
+    response = ds.get_departments()
+    departments = response.json()['data']
+    department_names = {str(dept['id']): f"{dept['id']} - {dept['name'].upper()}" for dept in departments}
+    SelectDepartments = Enum('SelectionValue', department_names)
+    return SelectDepartments
 
 class ProductModel(BaseModel):
+
+    SelectDepartments = get_departments()
+
     product_name: str = Field(..., title='Nome do Produto')
     product_description: Optional[str] = Field(
         None, title='Descrição do Produto'
@@ -21,13 +25,13 @@ class ProductModel(BaseModel):
     sale_price: float = Field(
         ..., title='Preço de Venda'
     )
-    if len(department_names) == 1:
+    if len(SelectDepartments.__members__) == 1:
         department_id: str = Field( # type: ignore
-            department_names['3'], title='Departamento do Produto'
+            SelectDepartments[0], title='Departamento do Produto'
         )
     else:
-        department_id: SelectionValue = Field( # type: ignore
-            ..., title='Departamento do Produto'
+        department_id: SelectDepartments = Field( # type: ignore
+            SelectDepartments['1'], title='Departamento do Produto'
     )
     stock: float = Field(..., title='Estoque')
 
