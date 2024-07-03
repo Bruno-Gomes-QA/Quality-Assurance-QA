@@ -9,6 +9,7 @@ departments = response.json()['data']
 department_names = {str(dept['id']): f"{dept['id']} - {dept['name'].upper()}" for dept in departments}
 SelectionValue = Enum('SelectionValue', department_names)
 
+
 class ProductModel(BaseModel):
     product_name: str = Field(..., title='Nome do Produto')
     product_description: Optional[str] = Field(
