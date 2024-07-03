@@ -46,3 +46,30 @@ def test_given_post_products_when_get_reponse_then_added_product(client):
     response = client.post('/product', json=data)
     assert response.status_code == 201
     assert response.json == expected
+
+def test_given_post_products_when_not_department_id_then_deparment_not_found(client):
+    data = {
+        'product_name': 'Test',
+        'product_description': 'Test',
+        'buy_price': 10.0,
+        'sale_price': 20.0,
+        'stock': 10.0,
+        'department_id': 0,
+    }
+    now = datetime.now().strftime('%a, %d %b %Y %H:%M:%S GMT')
+    expect_data = {
+        'id': 1,
+        'product_name': 'Test',
+        'product_description': 'Test',
+        'buy_price': 10.0,
+        'sale_price': 20.0,
+        'stock': 10.0,
+        'department_id': 1,
+        'created_at': now,
+        'updated_at': now,
+    }
+    expected = {'message': 'Department not found'}
+
+    response = client.post('/product', json=data)
+    assert response.status_code == 404
+    assert response.json == expected

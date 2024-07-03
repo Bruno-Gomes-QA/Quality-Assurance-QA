@@ -20,6 +20,8 @@ streamlit = "^1.36.0"
 requests = "^2.32.3"
 streamlit-pydantic = "^0.6.0"
 streamlit-js-eval = "^0.1.7"
+robotframework = "^7.0.1"
+robotframework-seleniumlibrary = "^6.5.0"
 
 
 [build-system]
