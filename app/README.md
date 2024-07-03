@@ -5,10 +5,6 @@
   <h2 id="Introdução">Introdução ☕</h2>
 O aplicativo para o Gestor de Produtos e Departamentos foi construído utilizando Streamlit. Este front-end permite uma interação intuitiva com a API, facilitando a execução de operações CRUD para a gestão de produtos e departamentos. A interface amigável do Streamlit oferece uma maneira eficiente e acessível de visualizar e manipular dados, garantindo uma experiência de usuário fluida e prática.
 
-<div>
-<img src="./.github/swagger.png" width="600px">
-<img src="./.github/pytest.png" width="600px">
-</div>
 
 </div>
 
@@ -46,7 +42,10 @@ pip install poetry
 ```
 - API 
 
-Para rodar o app a api deve estar de pé, para isso siga as instruções no README.md abaixo
+Para rodar o app a api deve estar de pé, para isso siga as instruções no README.md abaixo:
+
+[API]: https://img.shields.io/badge/API-000?style=for-the-badge&logo=html
+[![api][API]](../api/README.md)
 
 - Iniciar o ambiente com Poetry
 ```bash
